@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
         public class HelloController {
     // This method will be serving http methods at /say/name/number
-       @GetMapping("/say/{name}/{number}")
-       public String sayHello(@PathVariable("name") String name, @PathVariable("number") int number){
+       @GetMapping("/say/{name}/{times}")
+       public String sayHello(@PathVariable("name") String name, @PathVariable("times") int times){
               String ans = "";
-           for(int i=0; i< number;i++){
+           for(int i=0; i< times;i++){
                ans += "Hello "+name;
                ans += "<br>";
            }
