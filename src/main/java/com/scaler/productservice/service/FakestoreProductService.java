@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class FakestoreProductService implements ProductService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     List<Product> products = new ArrayList<>();
 
     @Autowired
@@ -66,7 +66,7 @@ public class FakestoreProductService implements ProductService {
     public void deleteProduct(Long id) {
 
     for(int i = 0; i<products.size();i++){
-        if(id == products.get(i).getId()){
+        if(Objects.equals(id, products.get(i).getId())){
             products.remove(i);
             break;
         }
@@ -76,7 +76,7 @@ public class FakestoreProductService implements ProductService {
   @Override
   public void replaceProduct(Long id, Product product){
         for(int i=0; i<products.size(); i++){
-            if(id == products.get(i).getId()){
+            if(Objects.equals(id, products.get(i).getId())){
                 products.set(i,product);
             }
         }

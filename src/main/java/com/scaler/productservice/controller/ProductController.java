@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductService productService;
+    final private ProductService productService;
 
     @Autowired
     private ProductController(ProductService productService) {
