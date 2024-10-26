@@ -62,6 +62,7 @@ public class FakestoreProductService implements ProductService {
       //  List<FakestoreProductDto> response = restTemplate.getForObject("https://fakestoreapi.com/products",List.class);
       FakestoreProductDto [] response = restTemplate.getForObject("https://fakestoreapi.com/products",FakestoreProductDto[].class);
         List<Product> answer = new ArrayList<>();
+        assert response != null;
         for(FakestoreProductDto dto : response){
             answer.add(convertProductDtoToProduct(dto));
         }
