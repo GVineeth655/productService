@@ -41,8 +41,8 @@ public class ProductController {
 
     @PatchMapping("/update/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
-         productService.updateProduct(id,product);
-         return new ResponseEntity<>(HttpStatus.OK);
+
+         return new ResponseEntity<>(productService.updateProduct(id,product),HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
