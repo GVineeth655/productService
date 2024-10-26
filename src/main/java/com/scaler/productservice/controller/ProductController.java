@@ -2,6 +2,7 @@ package com.scaler.productservice.controller;
 
 import java.util.*;
 
+import com.scaler.productservice.models.Category;
 import com.scaler.productservice.models.Product;
 import com.scaler.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,18 @@ public class ProductController {
     @Autowired
     private ProductController(ProductService productService) {
     this.productService = productService;
-}
+    }
 
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts(){
+        ResponseEntity<List<Product>> response = new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+        return response;
     }
 
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id){
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id){
+         ResponseEntity<Product> response = new ResponseEntity<Product>(productService.getSingleProduct(id),HttpStatus.ACCEPTED);
+        return response;
     }
 
     @PostMapping("/add")
@@ -37,7 +40,7 @@ public class ProductController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
          productService.updateProduct(id,product);
          return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -49,10 +52,18 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
-      productService.replaceProduct(id,product);
-      return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
+      ResponseEntity<Product> response = new ResponseEntity<>(productService.replaceProduct(id,product),HttpStatus.OK);
+      return response;
+    }
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getAllCategories(){
+        ResponseEntity<List<Category>> response = new ResponseEntity<>(productService.getAllCategories(), HttpStatus.OK);
+        return response;
     }
 
-
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<List<Product>> getProductWithCategory(@PathVariable("categoryName") String categoryName){
+        return new ResponseEntity<>(productService.getProductWithCategory("categoryName"), HttpStatus.OK);
+    }
 }
